@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
-import router from "next/router";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const ButtonContainer: React.FC = () => {
+   const router = useRouter();
    const handleWho = () => {
       // Route user to /who
       router.push("/who");
@@ -14,30 +17,39 @@ const ButtonContainer: React.FC = () => {
    };
 
    return (
-      <div className='flex'>
-         <button
-            className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded'
-            style={{ width: "100px" }}
-            onClick={handleWho}
-         >
-            Who are we
-         </button>
-         <Link href='/contact'>
+      <menu>
+         <div className='flex space-x-3'>
             <button
-               className='bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded'
-               style={{ width: "100px" }}
+               className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded'
+               onClick={handleWho}
             >
-               clients
+               Who are we
             </button>
-         </Link>
-         <button
-            className='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded'
-            style={{ width: "100px" }}
-            onClick={handleContact}
-         >
-            Contact
-         </button>
-      </div>
+            <Link href='/clients'>
+               <button
+                  className='bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded'
+                  style={{ width: "200px" }}
+               >
+                  clients
+               </button>
+            </Link>
+            <button
+               className='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded'
+               style={{ width: "200px" }}
+               onClick={handleContact}
+            >
+               Contact
+            </button>
+            <Link href='/dog'>
+               <button
+                  className='font-bold py-2 px-4 rounded'
+                  style={{ width: "200px" }}
+               >
+                  Dog
+               </button>
+            </Link>
+         </div>
+      </menu>
    );
 };
 
