@@ -14,26 +14,62 @@ const defaultDog: DogType = {
 };
 
 export default function Dogs() {
-   const handleGetDog = async () => {
-      setDog(await getDog());
+   const handleGetDogs = async () => {
+      setDog1(await getDog(1));
+      setDog2(await getDog(2));
+      setDog3(await getDog(3));
       return true;
    };
 
-   const getDog = async () => {
-      const res = await fetch("https://dog.ceo/api/breeds/image/random");
+   const getDog = async (num: number) => {
+      const res =
+         num === 1
+            ? await fetch("https://dog.ceo/api/breeds/image/random", {
+                 cache: "force-cache",
+              })
+            : num === 2
+            ? await fetch("https://dog.ceo/api/breeds/image/random", {
+                 next: { revalidate: 10 },
+              })
+            : await fetch("https://dog.ceo/api/breeds/image/random", {
+                 cache: "no-store",
+              });
       const data: DogType = await res.json();
       return data;
    };
 
-   const [dog, setDog] = useState<DogType>(defaultDog);
+   const [dog1, setDog1] = useState<DogType>(defaultDog);
+   const [dog2, setDog2] = useState<DogType>(defaultDog);
+   const [dog3, setDog3] = useState<DogType>(defaultDog);
 
    return (
       <>
          <div className='p-10'>
-            <button onClick={handleGetDog}>Get Dog</button>
+            <button onClick={handleGetDogs}>Get Dog</button>
          </div>
-         {dog.status !== "init" ? (
-            <Image src={dog.message} alt='example' width={300} height={300} />
+         {dog1.status !== "init" ||
+         dog2.status !== "init" ||
+         dog3.status !== "init" ? (
+            <>
+               <Image
+                  src={dog1.message}
+                  alt='example'
+                  width={300}
+                  height={300}
+               />
+               <Image
+                  src={dog2.message}
+                  alt='example'
+                  width={300}
+                  height={300}
+               />
+               <Image
+                  src={dog3.message}
+                  alt='example'
+                  width={300}
+                  height={300}
+               />
+            </>
          ) : (
             <></>
          )}
