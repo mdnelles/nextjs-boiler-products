@@ -15,7 +15,13 @@
       --background-end-rgb: 0, 0, 0;
    }
 }
-
+.button1 {
+   background-color: #00f;
+   padding: 10px;
+   border-radius: 5px;
+   color: #fff;
+   font-weight: 800;
+}
 body {
    color: rgb(var(--foreground-rgb));
    background: linear-gradient(

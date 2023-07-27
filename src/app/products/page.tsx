@@ -1,51 +1,57 @@
 "use client";
-import { prods } from "../../data/dummy";
+import { prods } from "@/data/dummy";
+import { DynamicButtonProps, Product } from "@/types";
 import Image from "next/image";
-import dynamic from "next/dynamic";
+import { useRouter } from "next/navigation"; // Import the hook instead of the module
 
-interface DynamicButtonProps {
-   onClick: () => void;
-   children: React.ReactNode;
-}
-
-const DynamicButton = (props: DynamicButtonProps) => {
+const Button = (props: DynamicButtonProps) => {
    const { onClick, children } = props;
 
-   return <button onClick={onClick}>{children}</button>;
+   return (
+      <button onClick={onClick} className='button1'>
+         {children}
+      </button>
+   );
 };
 
-export default function Products() {
+function Products() {
+   const router = useRouter();
    const handleView = (id: number) => {
+      // push user to the /prdoucts/[id] page
+      router.push(`/products/${id}`);
       console.log(id);
    };
+
    return (
       <>
-         {prods.map((p) => (
-            <div className='container'>
+         {prods.map((p: Product) => (
+            <div className='container' key={"i" + p.id}>
                <div className='cell'>
                   {p.title}
                   <Image
                      src={p.thumbnail}
-                     width={10}
-                     height={10}
+                     width={100}
+                     height={100}
                      alt={p.title}
                   />
                </div>
                <div className='cell'>
-                  Price ${p.price}
-                  Discount % {p.discountPercentage}
-                  Rating: {p.rating}
-                  In Stock: {p.stock}
-                  Brand: {p.brand}
-                  Category: {p.category}
+                  <ul>
+                     <li>Price ${p.price}</li>
+                     <li>Discount % {p.discountPercentage}</li>
+                     <li>Rating: {p.rating}</li>
+                     <li>In Stock: {p.stock}</li>
+                     <li>Brand: {p.brand}</li>
+                     <li>Category: {p.category}</li>
+                  </ul>
                </div>
                <div className='cell'>
-                  <DynamicButton onClick={() => handleView(p.id)}>
-                     View Details
-                  </DynamicButton>
+                  <Button onClick={() => handleView(p.id)}>View Details</Button>
                </div>
             </div>
          ))}
       </>
    );
 }
+
+export default Products;
