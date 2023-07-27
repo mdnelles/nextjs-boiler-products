@@ -48,6 +48,14 @@ const ButtonContainer: React.FC = () => {
                   Dog
                </button>
             </Link>
+            <Link href='/products'>
+               <button
+                  className='font-bold py-2 px-4 rounded'
+                  style={{ width: "200px" }}
+               >
+                  Products
+               </button>
+            </Link>
          </div>
       </menu>
    );
