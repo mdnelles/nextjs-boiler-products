@@ -17,7 +17,6 @@ const Button = (props: DynamicButtonProps) => {
 function Products() {
    const router = useRouter();
    const handleView = (id: number) => {
-      // push user to the /prdoucts/[id] page
       router.push(`/products/${id}`);
       console.log(id);
    };
